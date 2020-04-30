@@ -1,0 +1,72 @@
+<div class="container-fuid text-center px-5 py-3">
+    <div class="row justify-content-center">
+        <div class="col">
+            <section>
+                <img class="img-fluid" src="../../assets/logo.jpg" alt="" width="150">
+            </section>
+        </div>
+    </div>
+    <div class="row justify-content-center align-items-start mb-5">
+        <div class="col-10 col-lg-7 px-lg-5 text-left">
+            <section class="display-2 animated fadeInDown slow">
+                Free Currency Convertor
+            </section>
+            <h3 class="mt-3">
+                Convert the Currency you need within seconds, check the rates for world currencies.
+            </h3>
+            <a class="btn shadow mt-5 px-5" href="#convert">Convert</a>
+        </div>
+        <div class="col-10 col-lg-5 mt-3 mt-lg-0">
+            <section>
+                <img class="img-fluid" src="../../assets/image.jpg" alt="">
+            </section>
+        </div>
+    </div>
+
+    <div class="row justify-content-center py-5" id="convert">
+        <div class="col-10 col-lg-8 m-5">
+            <div class="card p-5 shadow-lg">
+                <div class="display-4 text-center mb-5">CONVERT</div>
+                <div class="row justify-content-center">
+                    <div class="col-10 col-md-6">
+                        <select class="custom-select custom-select-lg mb-3" id="inputBaseCurrency" [(ngModel)]="baseCurrency"
+                            (change)="convert()">
+                            <option selected [value]="choose" disabled>Select Base Currency</option>
+                            <option *ngFor="let option of currencies | keyvalue" value="{{ option.key }}">
+                                {{ option.key }}
+                                {{ option.value }}</option>
+                        </select>
+                        <select class="custom-select custom-select-lg mb-3" id="inputToCurrency" [(ngModel)]="toCurrency"
+                            (change)="convert()">
+                            <option selected [value]="choose" disabled>Select To Currency</option>
+                            <option *ngFor="let option of currencies | keyvalue" value="{{ option.key }}">
+                                {{ option.key }}
+                                {{ option.value }}</option>
+                        </select>
+                    </div>
+                    <div class="col-10 col-md-6">
+                        <div class="input-group input-group-lg mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">{{ baseCurrencySymbol }}</span>
+                            </div>
+                            <input type="text" class="form-control text-right" [(ngModel)]="baseCurrencyAmount" (ngModelChange)="calcuateCurrency()"/>
+                        </div>
+
+                        <div class="input-group input-group-lg mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">{{ toCurrencySymbol }}</span>
+                            </div>
+                            <input type="text" class="form-control text-right" [(ngModel)]="toCurrencyAmount" disabled>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 text-left py-3" *ngIf="exchangeRate">
+                    <section class="text-muted">1 ({{ baseCurrencySymbol }}) {{ currencies[baseCurrency] }} equals</section>
+                    <section class="text-highlighted">{{ exchangeRate | number : '1.3-6' }} ({{ toCurrencySymbol }}) {{ currencies[toCurrency] }}</section>
+                    <section>{{ date | date : 'dd MMM, hh:mm a OOOO'}}</section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

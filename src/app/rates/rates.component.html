@@ -1,0 +1,24 @@
+<div class="container">
+    <h4 class="display-4 my-2">Rates</h4>
+    <hr class="mb-4">
+    <div class="my-3">
+        <span class="lead">Base Currency</span>
+        <select class="custom-select custom-select-lg my-2" id="inputBaseCurrency" option="5" [(ngModel)]="baseCurrency"
+            (change)="getCurrencyRates(baseCurrency)">
+            <option selected [value]="choose" disabled>Select Base Currency</option>
+            <option *ngFor="let option of currencies | keyvalue" value="{{ option.key }}">
+                {{ option.key }}
+                {{ option.value }}</option>
+        </select>
+    </div>
+    <div class="text-center display-4 p-5 m-5 text-muted" *ngIf="!baseCurrency">Select Base Currency to get the Exchange-Rates</div>
+    <div class="row py-5" *ngIf="baseCurrency">
+        <h4 class="col-10 mb-5">1 {{ baseCurrency }} equals</h4>
+        <div class="col-md-6 col-xl-4 mb-5" *ngFor="let rate of rateList;">
+            <div class="card p-4 shadow">
+                <p class="text-rate">{{ rate.value }} {{ rate.code }} ( {{ rate.symbol }} )</p>
+                <h5 class="text-muted">{{ rate.name }}</h5>
+            </div>
+        </div>
+    </div>
+</div>
